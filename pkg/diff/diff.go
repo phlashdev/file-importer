@@ -6,18 +6,21 @@ import (
 	"os"
 )
 
+var ErrNoSrc = errors.New("source directory must not be empty")
+var ErrNoDest = errors.New("destination directory must not be empty")
+
 type directoryDiffer struct {
 	src  string
 	dest string
 }
 
-func NewDirectoryDiffer(src string, dest string) (directoryDiffer, error) {
+func NewDirectoryDiffer(src, dest string) (directoryDiffer, error) {
 	if src == "" {
-		return directoryDiffer{}, errors.New("source directory must not be empty")
+		return directoryDiffer{}, ErrNoSrc
 	}
 
 	if dest == "" {
-		return directoryDiffer{}, errors.New("destination directory must not be empty")
+		return directoryDiffer{}, ErrNoDest
 	}
 
 	return directoryDiffer{
