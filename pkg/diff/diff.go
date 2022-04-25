@@ -1,4 +1,4 @@
-package main
+package diff
 
 import (
 	"errors"
@@ -11,7 +11,7 @@ type directoryDiffer struct {
 	dest string
 }
 
-func newDirectoryDiffer(src string, dest string) (directoryDiffer, error) {
+func NewDirectoryDiffer(src string, dest string) (directoryDiffer, error) {
 	if src == "" {
 		return directoryDiffer{}, errors.New("source directory must not be empty")
 	}
@@ -26,7 +26,7 @@ func newDirectoryDiffer(src string, dest string) (directoryDiffer, error) {
 	}, nil
 }
 
-func (d directoryDiffer) diff() error {
+func (d directoryDiffer) Diff() error {
 	_, err := os.ReadDir(d.src)
 	if errors.Is(err, os.ErrNotExist) {
 		return fmt.Errorf("source directory does not exist: %s", d.src)

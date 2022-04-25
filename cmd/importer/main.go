@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 
+	"github.com/phlashdev/file-importer/pkg/diff"
 	"github.com/spf13/viper"
 )
 
@@ -18,12 +19,12 @@ func main() {
 	src := viper.GetString("src")
 	dest := viper.GetString("dest")
 
-	differ, err := newDirectoryDiffer(src, dest)
+	differ, err := diff.NewDirectoryDiffer(src, dest)
 	if err != nil {
 		log.Fatalf("error creating differ: %s", err)
 	}
 
-	err = differ.diff()
+	err = differ.Diff()
 	if err != nil {
 		log.Fatalf("error while executing diff: %s", err)
 	}
